@@ -1,0 +1,435 @@
+// Variables
+$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$background-dark: #1a1a2e;
+$background-medium: #16213e;
+$text-color: #fff;
+$text-muted: #aaa;
+$text-disabled: #888;
+
+// Colors
+$color-primary: #3498db;
+$color-primary-light: #5dade2;
+$color-primary-dark: #2980b9;
+
+$color-success: #27ae60;
+$color-success-light: #2ecc71;
+$color-success-dark: #1e8449;
+
+$color-danger: #e74c3c;
+$color-danger-light: #ec7063;
+$color-danger-dark: #c0392b;
+
+$color-purple: #9b59b6;
+$color-purple-light: #a569bd;
+$color-purple-dark: #8e44ad;
+
+$color-gray: #95a5a6;
+$color-gray-light: #bdc3c7;
+$color-gray-dark: #7f8c8d;
+
+// Layout
+$controls-width: 280px;
+$border-radius: 8px;
+$border-radius-large: 10px;
+
+// Shadows
+$shadow-button: 0 4px 6px rgba(0, 0, 0, 0.3);
+$shadow-button-hover: 0 6px 12px rgba(0, 0, 0, 0.4);
+$shadow-button-active: 0 2px 4px rgba(0, 0, 0, 0.3);
+$shadow-text: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+// Mixins
+@mixin button-base {
+    font-weight: bold;
+    border: none;
+    border-radius: $border-radius;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: white;
+    box-shadow: $shadow-button;
+}
+
+@mixin button-gradient($color-light, $color-dark) {
+    background: linear-gradient(145deg, $color-light, $color-dark);
+}
+
+@mixin button-hover-effect {
+    transform: translateY(-2px);
+    box-shadow: $shadow-button-hover;
+}
+
+@mixin button-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+@mixin glass-background {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+@mixin dark-panel {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: $border-radius-large;
+}
+
+// Reset
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+// Body
+body {
+    font-family: $font-family;
+    background: linear-gradient(135deg, $background-dark 0%, $background-medium 100%);
+    min-height: 100vh;
+    color: $text-color;
+}
+
+// Layout
+#container {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#cubeCanvas {
+    width: calc(100vw - $controls-width);
+    height: 100vh;
+    display: block;
+}
+
+#controls {
+    width: $controls-width;
+    min-width: $controls-width;
+    flex-shrink: 0;
+    padding: 20px;
+    @include glass-background;
+    overflow-y: auto;
+}
+
+// Typography
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: $text-color;
+    text-shadow: $shadow-text;
+}
+
+h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    color: $text-muted;
+}
+
+// Control Sections
+.control-section {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+// Button Grids
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.button-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.button-grid,
+.button-grid-3 {
+    button {
+        padding: 12px 8px;
+        font-size: 0.85rem;
+        @include button-base;
+        @include button-gradient($color-primary, $color-primary-dark);
+
+        &:hover {
+            @include button-hover-effect;
+            @include button-gradient($color-primary-light, $color-primary);
+        }
+
+        &:active {
+            transform: translateY(0);
+            box-shadow: $shadow-button-active;
+        }
+
+        &:disabled {
+            @include button-disabled;
+        }
+    }
+}
+
+// Action Buttons
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    button {
+        padding: 15px;
+        font-size: 1rem;
+        @include button-base;
+        border-radius: $border-radius-large;
+
+        &:disabled {
+            @include button-disabled;
+        }
+    }
+}
+
+#scrambleBtn {
+    @include button-gradient($color-danger, $color-danger-dark);
+
+    &:hover {
+        @include button-gradient($color-danger-light, $color-danger);
+        @include button-hover-effect;
+    }
+}
+
+#solveBtn {
+    @include button-gradient($color-success, $color-success-dark);
+
+    &:hover {
+        @include button-gradient($color-success-light, $color-success);
+        @include button-hover-effect;
+    }
+}
+
+#resetBtn {
+    @include button-gradient($color-purple, $color-purple-dark);
+
+    &:hover {
+        @include button-gradient($color-purple-light, $color-purple);
+        @include button-hover-effect;
+    }
+}
+
+#exportBtn {
+    @include button-gradient($color-primary, $color-primary-dark);
+
+    &:hover {
+        @include button-gradient($color-primary-light, $color-primary);
+        @include button-hover-effect;
+    }
+}
+
+// Speed Slider
+#speedSlider {
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    -webkit-appearance: none;
+
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: $color-primary;
+        cursor: pointer;
+        box-shadow: $shadow-button-active;
+    }
+}
+
+#speedValue {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    color: $text-muted;
+    font-size: 0.85rem;
+}
+
+// Status
+#status {
+    @include dark-panel;
+    padding: 15px;
+
+    p {
+        margin: 5px 0;
+        font-size: 0.9rem;
+    }
+}
+
+#statusText {
+    color: $color-success-light;
+    font-weight: bold;
+}
+
+#moveCount {
+    color: $color-primary;
+    font-weight: bold;
+}
+
+// Solution Display
+#solutionDisplay {
+    margin-top: 20px;
+    padding: 15px;
+    @include dark-panel;
+
+    h3 {
+        margin-bottom: 8px;
+    }
+}
+
+#solveInfo {
+    color: $color-primary;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+#solutionMoves {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+// Move Items
+.move-item {
+    display: inline-block;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.move-pending {
+    color: $text-color;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.move-current {
+    color: $background-dark;
+    background: $color-success-light;
+    font-weight: bold;
+    transform: scale(1.1);
+}
+
+.move-done {
+    color: #666;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+// Playback Controls
+#playbackControls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+
+    button {
+        flex: 1;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        @include button-base;
+
+        &:disabled {
+            @include button-disabled;
+        }
+    }
+}
+
+#prevBtn {
+    @include button-gradient($color-gray, $color-gray-dark);
+
+    &:hover:not(:disabled) {
+        @include button-gradient($color-gray-light, $color-gray);
+    }
+}
+
+#playBtn {
+    @include button-gradient($color-success, $color-success-dark);
+
+    &:hover:not(:disabled) {
+        @include button-gradient($color-success-light, $color-success);
+    }
+}
+
+#nextBtn {
+    @include button-gradient($color-primary, $color-primary-dark);
+
+    &:hover:not(:disabled) {
+        @include button-gradient($color-primary-light, $color-primary);
+    }
+}
+
+// Move History Section
+#moveHistorySection {
+    border-bottom: none;
+}
+
+#moveHistoryDisplay {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+    max-height: 150px;
+    overflow-y: auto;
+    padding: 10px;
+    @include dark-panel;
+    border-radius: $border-radius;
+}
+
+.history-move {
+    display: inline-block;
+    padding: 4px 8px;
+    background: rgba($color-primary, 0.3);
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: $text-color;
+}
+
+.no-moves {
+    color: $text-disabled;
+    font-style: italic;
+    font-size: 0.85rem;
+}
+
+.copy-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.9rem;
+    @include button-base;
+    @include button-gradient($color-primary, $color-primary-dark);
+
+    &:hover {
+        @include button-gradient($color-primary-light, $color-primary);
+        @include button-hover-effect;
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    #container {
+        flex-direction: column;
+    }
+
+    #cubeCanvas {
+        width: 100vw;
+        height: 50vh;
+    }
+
+    #controls {
+        width: 100%;
+        min-width: unset;
+        height: 50vh;
+    }
+}

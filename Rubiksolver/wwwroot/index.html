@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubik's Cube Solver</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="container">
+        <canvas id="cubeCanvas"></canvas>
+        <div id="controls">
+            <h2>Rubik's Cube Solver</h2>
+
+            <div class="control-section">
+                <h3>Face Rotations</h3>
+                <div class="button-grid-3">
+                    <button data-move="U" title="Up clockwise">U</button>
+                    <button data-move="U'" title="Up counter-clockwise">U'</button>
+                    <button data-move="U2" title="Up 180">U2</button>
+                    <button data-move="D" title="Down clockwise">D</button>
+                    <button data-move="D'" title="Down counter-clockwise">D'</button>
+                    <button data-move="D2" title="Down 180">D2</button>
+                    <button data-move="L" title="Left clockwise">L</button>
+                    <button data-move="L'" title="Left counter-clockwise">L'</button>
+                    <button data-move="L2" title="Left 180">L2</button>
+                    <button data-move="R" title="Right clockwise">R</button>
+                    <button data-move="R'" title="Right counter-clockwise">R'</button>
+                    <button data-move="R2" title="Right 180">R2</button>
+                    <button data-move="F" title="Front clockwise">F</button>
+                    <button data-move="F'" title="Front counter-clockwise">F'</button>
+                    <button data-move="F2" title="Front 180">F2</button>
+                    <button data-move="B" title="Back clockwise">B</button>
+                    <button data-move="B'" title="Back counter-clockwise">B'</button>
+                    <button data-move="B2" title="Back 180">B2</button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Actions</h3>
+                <div class="action-buttons">
+                    <button id="scrambleBtn">Scramble</button>
+                    <button id="solveBtn">Solve</button>
+                    <button id="resetBtn">Reset</button>
+                    <button id="exportBtn">Export State</button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Speed</h3>
+                <input type="range" id="speedSlider" min="100" max="1000" value="300">
+                <span id="speedValue">300ms</span>
+            </div>
+
+            <div id="status">
+                <p>Status: <span id="statusText">Ready</span></p>
+                <p>Moves: <span id="moveCount">0</span></p>
+            </div>
+
+            <div id="moveHistorySection" class="control-section">
+                <h3>Move History</h3>
+                <div id="moveHistoryDisplay"></div>
+                <button id="copyMovesBtn" class="copy-btn" style="display: none;">Copy Moves</button>
+            </div>
+
+            <div id="solutionDisplay" style="display: none;">
+                <h3>Solution</h3>
+                <p id="solveInfo"></p>
+                <div id="solutionMoves"></div>
+                <div id="playbackControls" style="display: none;">
+                    <button id="prevBtn" title="Previous step">Prev</button>
+                    <button id="playBtn" title="Play/Pause">Play</button>
+                    <button id="nextBtn" title="Next step">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
