@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Rubiksolver/Rubiksolver.csproj" />
+  <Project Path="Game2048/Game2048.csproj" />
 </Solution>

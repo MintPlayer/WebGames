@@ -453,17 +453,7 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# **/*.css
-# **/*.css.map
-# **/*.js
-# **/*.js.map
-
-# TypeScript compiled output (generated from Scripts/*.ts)
-Rubiksolver/wwwroot/js/*.js
-Rubiksolver/wwwroot/js/*.js.map
-
-# SCSS compiled output (generated from Styles/*.scss)
-Rubiksolver/wwwroot/css/*.css
-Rubiksolver/wwwroot/css/*.css.map
-Rubiksolver/Styles/*.css
-Rubiksolver/Styles/*.css.map
+**/*.css
+**/*.css.map
+**/*.js
+**/*.js.map
