@@ -39,34 +39,39 @@ class KeyboardInputManager {
     listen() {
         var self = this;
 
-        var map: { [key: number]: number } = {
-            38: 0, // Up
-            39: 1, // Right
-            40: 2, // Down
-            37: 3, // Left
-            75: 0, // Vim up (k)
-            76: 1, // Vim right (l)
-            74: 2, // Vim down (j)
-            72: 3, // Vim left (h)
-            87: 0, // W
-            68: 1, // D
-            83: 2, // S
-            65: 3  // A
+        var map: { [key: string]: number } = {
+            "ArrowUp": 0,
+            "ArrowRight": 1,
+            "ArrowDown": 2,
+            "ArrowLeft": 3,
+            "k": 0, // Vim up
+            "l": 1, // Vim right
+            "j": 2, // Vim down
+            "h": 3, // Vim left
+            "w": 0,
+            "d": 1,
+            "s": 2,
+            "a": 3
         };
 
         document.addEventListener("keydown", function (event) {
             var modifiers = event.altKey || event.ctrlKey || event.metaKey || event.shiftKey;
-            var mapped = map[event.which];
+            var mapped = map[event.key];
 
             if (!modifiers) {
                 if (mapped !== undefined) {
                     event.preventDefault();
                     self.emit("move", mapped);
                 }
-            }
 
-            if (!modifiers && event.which === 82) {
-                self.restart(event);
+                if (event.key === "r" || event.key === "R") {
+                    self.restart(event);
+                }
+
+                // Enter key to keep playing (dismiss win screen)
+                if (event.key === "Enter") {
+                    self.emit("keepPlaying");
+                }
             }
         });
 
