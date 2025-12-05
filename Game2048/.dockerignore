@@ -1,6 +1,34 @@
+# Build outputs
 bin/
 obj/
+
+# IDE and editor files
 .vs/
+.vscode/
+.idea/
 *.user
 *.suo
+
+# Git
+.git/
+.gitignore
+
+# Node modules (will be restored during build)
 node_modules/
+
+# Compiled output (will be regenerated during build)
+wwwroot/js/*.js
+wwwroot/js/*.js.map
+wwwroot/css/main.css
+wwwroot/css/main.css.map
+Styles/*.css
+Styles/*.css.map
+
+# Documentation
+*.md
+LICENSE
+
+# Docker
+Dockerfile
+.dockerignore
+docker-compose*.yml

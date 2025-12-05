@@ -15,7 +15,8 @@
       "Bash(mv:*)",
       "mcp__github__get_file_contents",
       "Bash(mkdir:*)",
-      "Bash(dotnet publish:*)"
+      "Bash(dotnet publish:*)",
+      "Bash(git check-ignore:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
