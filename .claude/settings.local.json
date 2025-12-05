@@ -14,7 +14,8 @@
       "Bash(find:*)",
       "Bash(mv:*)",
       "mcp__github__get_file_contents",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(dotnet publish:*)"
     ]
   },
   "enableAllProjectMcpServers": true,
