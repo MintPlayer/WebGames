@@ -1,0 +1,68 @@
+name: publish-2048
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'Game2048/**'
+      - '.github/workflows/publish-2048.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    name: Build and publish 2048
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+      attestations: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    # Publish to GitHub Container Registry
+    - name: Authenticate with GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ github.token }}
+
+    - name: Extract tags/labels
+      id: meta-ghcr
+      uses: docker/metadata-action@v5
+      with:
+        github-token: ${{ github.token }}
+        images: ghcr.io/${{ github.repository_owner }}/game2048
+        tags: |
+          type=raw,value=latest
+          type=sha,prefix=
+
+    - name: Build and push to Github Container Registry
+      id: push-ghcr
+      uses: docker/build-push-action@v6
+      with:
+        context: ./Game2048
+        file: ./Game2048/Dockerfile
+        push: true
+        tags: ${{ steps.meta-ghcr.outputs.tags }}
+        labels: ${{ steps.meta-ghcr.outputs.labels }}
+        build-args: |
+          REPO_URL=${{ github.server_url }}/${{ github.repository }}
+
+    - name: Generate artifact attestation
+      uses: actions/attest-build-provenance@v1
+      with:
+        subject-name: ghcr.io/${{ github.repository_owner }}/2048
+        subject-digest: ${{ steps.push-ghcr.outputs.digest }}
+        push-to-registry: true

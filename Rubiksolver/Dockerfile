@@ -1,5 +1,5 @@
-# Build stage
-FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
+# Build stage - using .NET 10 SDK
+FROM mcr.microsoft.com/dotnet/nightly/sdk:10.0 AS build
 WORKDIR /src
 
 # Install Node.js for npm (required for TypeScript type definitions)
@@ -23,18 +23,22 @@ COPY . .
 RUN dotnet publish -c Release -o /app/publish
 
 # Runtime stage
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview AS runtime
+FROM mcr.microsoft.com/dotnet/nightly/aspnet:10.0 AS runtime
+LABEL org.opencontainers.image.source="https://github.com/MintPlayer/WebGames"
 WORKDIR /app
 
 # Copy published output from build stage
 COPY --from=build /app/publish .
 
-# Expose port 8080 (default for ASP.NET Core in containers)
-EXPOSE 8080
+# Expose port 80
+EXPOSE 80
 
 # Set environment variables
-ENV ASPNETCORE_URLS=http://+:8080
+ENV ASPNETCORE_URLS=http://+:80
 ENV ASPNETCORE_ENVIRONMENT=Production
 
 # Run the application
 ENTRYPOINT ["dotnet", "Rubiksolver.dll"]
+
+# Build: docker build -t rubiksolver .
+# Run: docker run -p 80:80 rubiksolver
