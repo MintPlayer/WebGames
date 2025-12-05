@@ -29,8 +29,9 @@ COPY --from=build /app/publish .
 # Expose port 80
 EXPOSE 80
 
-# Set environment variable for ASP.NET Core
+# Set environment variables for ASP.NET Core
 ENV ASPNETCORE_URLS=http://+:80
+ENV ASPNETCORE_ENVIRONMENT=Production
 
 # Run the application
 ENTRYPOINT ["dotnet", "Game2048.dll"]
