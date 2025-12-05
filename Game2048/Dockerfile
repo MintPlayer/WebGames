@@ -2,6 +2,12 @@
 FROM mcr.microsoft.com/dotnet/nightly/sdk:10.0 AS build
 WORKDIR /src
 
+# Install Node.js for npm (required for TypeScript type definitions)
+RUN apt-get update && apt-get install -y curl \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy project file and restore dependencies
 COPY Game2048.csproj .
 RUN dotnet restore
