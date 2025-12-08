@@ -19,6 +19,7 @@ $dark-button-background: #d2864c;
 $dark-score-label-color: #f1dfc9;
 $dark-overlay-background: rgba(12, 10, 9, 0.72);
 $dark-overlay-win: rgba(227, 185, 80, 0.4);
+$dark-tile-low-value: #6a5f55;
 
 // Tile colors
 $tile-2-bg: #eee4da;
@@ -713,5 +714,11 @@ $tile-offset: 121px;
       background: $dark-overlay-win;
       color: $dark-text-color;
     }
+  }
+
+  // Keep tile text colors consistent with light mode
+  .tile.tile-2 .tile-inner,
+  .tile.tile-4 .tile-inner {
+    color: $dark-tile-low-value;
   }
 }
