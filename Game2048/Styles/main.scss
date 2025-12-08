@@ -10,6 +10,15 @@ $grid-background: #bbada0;
 $cell-background: rgba(238, 228, 218, 0.35);
 $button-background: #8f7a66;
 $score-label-color: #eee4da;
+$dark-background-color: #0f0d0c;
+$dark-text-color: #f4ede3;
+$dark-link-color: #f4cfa5;
+$dark-grid-background: #2f2621;
+$dark-cell-background: rgba(255, 255, 255, 0.07);
+$dark-button-background: #d2864c;
+$dark-score-label-color: #f1dfc9;
+$dark-overlay-background: rgba(12, 10, 9, 0.72);
+$dark-overlay-win: rgba(227, 185, 80, 0.4);
 
 // Tile colors
 $tile-2-bg: #eee4da;
@@ -643,5 +652,66 @@ $tile-offset: 121px;
 
   .game-message .lower {
     margin-top: 30px !important;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body {
+    background: $dark-background-color;
+    color: $dark-text-color;
+  }
+
+  a {
+    color: $dark-link-color;
+  }
+
+  hr {
+    border-bottom: 1px solid rgba(244, 237, 227, 0.15);
+  }
+
+  h1.title {
+    color: $dark-text-color;
+  }
+
+  .score-container,
+  .best-container {
+    background: $dark-grid-background;
+    color: $dark-text-color;
+
+    &:after {
+      color: $dark-score-label-color;
+    }
+
+    .score-addition {
+      color: $dark-text-color;
+    }
+  }
+
+  .restart-button {
+    background: $dark-button-background;
+    color: $dark-text-color;
+  }
+
+  .game-container {
+    background: $dark-grid-background;
+  }
+
+  .grid-cell {
+    background: $dark-cell-background;
+  }
+
+  .game-message {
+    background: $dark-overlay-background;
+    color: $dark-text-color;
+
+    a {
+      background: $dark-button-background;
+      color: $dark-text-color;
+    }
+
+    &.game-won {
+      background: $dark-overlay-win;
+      color: $dark-text-color;
+    }
   }
 }

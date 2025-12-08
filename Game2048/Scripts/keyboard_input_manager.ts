@@ -68,9 +68,15 @@ class KeyboardInputManager {
                     self.restart(event);
                 }
 
-                // Enter key to keep playing (dismiss win screen)
+                // Enter key to keep playing (dismiss win screen) or retry after game over
                 if (event.key === "Enter") {
-                    self.emit("keepPlaying");
+                    const messageContainer = document.querySelector(".game-message");
+
+                    if (messageContainer && messageContainer.classList.contains("game-over")) {
+                        self.restart(event);
+                    } else {
+                        self.emit("keepPlaying");
+                    }
                 }
             }
         });
