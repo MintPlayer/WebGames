@@ -44,9 +44,6 @@ jobs:
       with:
         github-token: ${{ github.token }}
         images: ghcr.io/${{ github.repository_owner }}/rubiksolver
-        tags: |
-          type=raw,value=latest
-          type=sha,prefix=
 
     - name: Build and push to Github Container Registry
       id: push-ghcr
