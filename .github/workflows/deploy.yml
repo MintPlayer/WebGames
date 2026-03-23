@@ -1,0 +1,27 @@
+name: deploy
+
+on:
+  workflow_run:
+    workflows:
+      - publish-2048
+      - publish-rubiksolver
+    types:
+      - completed
+    branches: [ main ]
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - name: Trigger deploy hook
+      uses: fjogeleit/http-request-action@v1
+      with:
+        url: ${{ secrets.DEPLOY_HOOK }}
+        method: POST
